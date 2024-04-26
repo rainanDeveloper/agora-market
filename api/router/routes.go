@@ -9,7 +9,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func initializeRoutes(router *gin.Engine) {
+func InitializeRoutes(router *gin.Engine) {
 	basePath := "/api"
 	docs.SwaggerInfo.BasePath = basePath
 	docs.SwaggerInfo.Title = "Agora Market API"
@@ -21,5 +21,8 @@ func initializeRoutes(router *gin.Engine) {
 			})
 		})
 	}
+	router.GET("/docs", func (context *gin.Context) {
+		context.Redirect(http.StatusMovedPermanently, "/docs/index.html");
+	})
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
